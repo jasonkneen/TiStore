@@ -32,6 +32,8 @@ exports.checkForAppUpdate = function(appId, callBack) {
 		// TODO: replace this with a regular expression to pull out just the numeric value and compare that.
 		if (parseInt(versionStore.replace(new RegExp('\\.', 'g'),'')) > parseInt(versionApp.replace(new RegExp('\\.', 'g'),''))) {
 			callBack(versionStore);
+		} else {
+			Ti.API.info('No new version available')
 		}
 	});
 }
