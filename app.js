@@ -3,7 +3,9 @@ var store = require("TiStore/tistore");
 // using 284910350 as an example app - app version is 6.4.2 so 
 // it should pop-up to say a new version is available.
 
-store.checkForAppUpdate('284910350', function(version) {
+var appId = '284910350';
+
+store.checkForAppUpdate(appId, function(version) {
 	var dialog = Ti.UI.createAlertDialog({
 		view : 0,
 		buttonNames : ['View', 'Cancel'],
@@ -13,7 +15,7 @@ store.checkForAppUpdate('284910350', function(version) {
 	
 	dialog.addEventListener('click', function(e) {
 		if (e.index === e.source.view) {
-			store.openAppPage('284910350');
+			store.openAppPage(appId);
 		}
 	});
 		
