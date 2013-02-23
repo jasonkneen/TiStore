@@ -28,6 +28,8 @@ exports.checkForAppUpdate = function(appId, callBack) {
 		
 		Ti.API.info(versionStore + '/' + versionApp); 
 		
+		// currently using a straight replace of . to get the number value, then compare for greater than.
+		// TODO: replace this with a regular expression to pull out just the numeric value and compare that.
 		if (parseInt(versionStore.replace(new RegExp('\\.', 'g'),'')) > parseInt(versionApp.replace(new RegExp('\\.', 'g'),''))) {
 			callBack(versionStore);
 		}
