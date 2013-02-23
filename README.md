@@ -1,7 +1,15 @@
 TiStore
 =======
 
-Utils for iOS AppStore Search API
+Utils for iOS AppStore Search API. 
+
+Currently two functions:-
+
+(where appId is the ID from iTunes Connect)
+
+	checkforAppUpdate(appId,callBack);
+	
+	openAppPage(appId);
 
 Example:-
 
