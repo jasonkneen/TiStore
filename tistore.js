@@ -14,7 +14,13 @@ function getURL(url, callBack) {
 	xhrClient.send();
 }
 
-// Opens the App page in the AppStore
+// helper function to remove chars from a string
+function removeChars(string,char) {
+	string = string.replace(new RegExp(char, 'g'), '')
+	return string
+}
+
+// Opens the App page in the AppStore App.
 exports.openAppPage = function(appId) {
 	if (appId) {
 		Ti.Platform.openURL('http://itunes.apple.com/us/app/id' + appId);
@@ -23,14 +29,13 @@ exports.openAppPage = function(appId) {
 // check for new app version
 exports.checkForAppUpdate = function(appId, callBack) {
 	getURL('https://itunes.apple.com/lookup?id=' + appId, function(result) {
+		
 		var versionStore = JSON.parse(result).results[0].version
 		var versionApp = Ti.App.version;
 		
-		Ti.API.info(versionStore + '/' + versionApp); 
-		
-		// currently using a straight replace of . to get the number value, then compare for greater than.
-		// TODO: replace this with a regular expression to pull out just the numeric value and compare that.
-		if (parseInt(versionStore.replace(new RegExp('\\.', 'g'),'')) > parseInt(versionApp.replace(new RegExp('\\.', 'g'),''))) {
+		// parse the versions to remove . so 2.3.4 becomes 234 then compare as integers		
+	
+		if (parseInt(removeChars(versionStore,'\\.')) > parseInt(removeChars(versionApp,'\\.'))) {
 			callBack(versionStore);
 		} else {
 			Ti.API.info('No new version available')
