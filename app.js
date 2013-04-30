@@ -1,11 +1,6 @@
 var store = require("TiStore/tistore");
 
-// using 284910350 as an example app - app version is 6.4.2 so 
-// it should pop-up to say a new version is available.
-
-var appId = '284910350';
-
-store.checkForAppUpdate(appId, function(version) {
+store.checkForAppUpdate(function(version, appId) {
 	var dialog = Ti.UI.createAlertDialog({
 		view : 0,
 		buttonNames : ['View', 'Cancel'],
