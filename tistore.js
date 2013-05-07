@@ -70,15 +70,24 @@ exports.openAppPage = function(appId) {
 	}
 }
 // check for new app version
-exports.checkForAppUpdate = function(appId, callBack) {
-	getURL('https://itunes.apple.com/lookup?id=' + appId, function(result) {
-		
-		var versionStore = JSON.parse(result).results[0].version
-		var versionApp = Ti.App.version;
+exports.checkForAppUpdate = function(callBack, appId) {
+	var url;
+	
+	if (appId) {
+		url = 'https://itunes.apple.com/lookup?id=' + appId;
+	} else {
+		url = 'http://itunes.apple.com/lookup?bundleId=' + Ti.App.id;	
+	}
+	
+	getURL(url, function(result) {
+		var json = JSON.parse(result),
+		    json.results[0].version,
+		    versionApp = Ti.App.version;
 		
 		// parse the versions to remove . so 2.3.4 becomes 234 then compare as integers		
 		if(versionCompare(versionStore, versionApp)) {
-			callBack(versionStore);
+			appId = appId || json.results[0].trackId;
+			callBack(versionStore, appId);
 		} else {
 			Ti.API.info('No new version available')
 		}

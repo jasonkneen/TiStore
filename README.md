@@ -7,7 +7,7 @@ Utils for iOS AppStore Search API.
 
 Currently consists of two functions:-
 
-**checkforAppUpdate(appId,callBack)**
+**checkforAppUpdate(callBack[,appId])**
 
 Checks if the AppStore app has a different version number to the current version, passes the version to the callBack specified. Works by replacing any . chars to get a number then doing a > comparison. Crude but works for normal x.x.x formats.
 	
